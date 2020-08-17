@@ -1,0 +1,44 @@
+﻿<div id="body">
+    <ul id="customer"></ul>
+
+
+    <form id="saveCustomerForm" method="post">
+        <h3>Create a new Customer</h3>
+        <p>
+            <label for="FirstName">First name:</label>
+            <input type="text" name="FirstName" />
+        </p>
+        <p>
+            <label for="LastName">Last name:</label>
+            <input type="text" name="LastName" />
+        </p>
+        <p>
+            <label for="PhoneNumber">Phone number:</label>
+            <input type="text" name="PhoneNumber" />
+        </p>
+        <input type="button" id="saveCustomer" value="Save" />
+    </form>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $.getJSON('/api/customer', function (contactsJsonPayload) {
+                $(contactsJsonPayload).each(function (i, item) {
+                    $('#customer').append('<li>' + item.FirstName + ' ' + item.LastName + ', ' + item.PhoneNumber + '</li>');
+                });
+            });
+
+            $('#saveCustomer').click(function () {
+                $.post("/api/customer",
+                    $("#saveCustomerForm").serialize(),
+                    function (value) {
+                        $('#customer').append('<li>' + value.FirstName + ' ' + value.LastName + ', ' + value.PhoneNumber + '</li>');
+                    },
+                    "json"
+                );
+            });
+        });
+    </script>
+}

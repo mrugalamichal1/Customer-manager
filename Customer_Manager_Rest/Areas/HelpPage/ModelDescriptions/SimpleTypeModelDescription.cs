@@ -1,0 +1,6 @@
+namespace Customer_Manager_Rest.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
